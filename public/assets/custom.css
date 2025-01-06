@@ -1,0 +1,180 @@
+/* custom.css */
+
+/* 1. Color global del fondo */
+body {
+    background-color: #E5E5E5 !important;
+    color: #003D99; /* Color de texto global */
+}
+
+/* 2. Modo oscuro: fondo y texto */
+body.dark-mode {
+    background-color: #121212; /* Fondo oscuro */
+    color: #e0e0e0; /* Color claro de texto en modo oscuro */
+}
+
+section {
+    background-color: #E5E5E5 !important;
+    color: #003D99; /* Color de texto */
+}
+
+.btn-primary {
+    background-color: #003D99; /* Azul claro suave */transition: background-color 0.3s ease; /* Transición suave al hacer hover */
+}
+
+/* 3. Barra lateral (sidebar) */
+.main-sidebar {
+    background-color: #FCD145; /* Fondo oscuro para la barra lateral */
+    color: #003D99; /* Color del texto de la barra lateral */
+}
+
+
+
+.nav-item:hover {
+    background-color: #93aeff;
+    color: #003D99; /* Cambia a un color más oscuro cuando se pasa el ratón */
+    border-radius: 8px;
+}
+
+/* Seleccionar solo el texto de "Dashboard v1" */
+.nav-item a.nav-link p {
+    color: #003D99; /* Cambia el color aquí, este es un ejemplo de color naranja */
+}
+
+/* Si deseas que el color cambie cuando se pasa el ratón (hover) */
+.nav-item a.nav-link:hover p {
+    color: #003D99;    
+}
+
+.nav-sidebar .nav-item a.nav-link i {
+    color: #003D99; /* Color personalizado para el ícono */
+}
+
+
+.nav-item a.nav-link:hover i {
+    color: #003D99; /* Cambia a un color más oscuro cuando se pasa el ratón */
+}
+
+.main-sidebar .nav-link {
+    color: #003D99; /* Color de los enlaces en la barra lateral */
+}
+
+.main-sidebar .nav-link:hover {
+    background-color: #fff;
+    border-radius: 8px; /* Fondo más oscuro al pasar el ratón sobre los enlaces */
+    color: #003D99;
+}
+
+.main-sidebar .nav-link.active {
+    background-color: #fff; /* Fondo azul para el enlace activo */
+    color: #fff; /* Texto blanco para el enlace activo */
+}
+
+/* 4. Encabezado (header) */
+.main-header {
+    background-color: #003D99; /* Fondo azul para el encabezado */
+    color: #FFFFFF; /* Color de texto blanco en el encabezado */
+}
+
+.main-header .navbar-nav .nav-link {
+    color: #fff; /* Color blanco para los enlaces de la barra de navegación */
+}
+
+.main-header .navbar-nav .nav-link:hover {
+    background-color: #fff;
+    border-radius: 8px; /* Fondo más oscuro al pasar el ratón sobre los enlaces */
+    color: #003D99;
+}
+
+/* 5. Color de texto en tarjetas (cards) */
+.card {
+    background-color: #fff; /* Fondo blanco por defecto */
+    border: 1px solid #ddd; /* Borde gris claro */
+}
+
+.card-body {
+    color: #333; /* Color de texto oscuro en el cuerpo de la tarjeta */
+}
+
+.card-title {
+    color: #003D99 !important;/* Color azul para los títulos de las tarjetas */
+    font-weight: solid;
+}
+
+/* 6. Color del texto en los títulos (headers) */
+h1, h2, h3, h4, h5, h6 {
+    color: #003D99 !important; /* Color oscuro para los títulos */
+}
+
+/* 7. Fondo del pie de página (footer) */
+.main-footer {
+    background-color: #f1f1f1; /* Fondo claro para el pie de página */
+    color: #333; /* Color oscuro para el texto del pie de página */
+}
+
+/* 8. Cambiar el color de los enlaces (links) */
+a {
+    color: #003D99; /* Color azul por defecto para los enlaces */
+}
+
+a:hover {
+    color: #003D99; /* Color más oscuro al pasar el ratón sobre los enlaces */
+}
+
+/* 9. Cambiar color de botones (buttons) */
+.btn-primary {
+    background-color: #003D99; /* Fondo azul para los botones */
+    border-color: #003D99; /* Borde azul para los botones */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Fondo más oscuro para el botón al pasar el ratón */
+    border-color: #004085; /* Borde más oscuro */
+}
+
+/* 10. Colores de las alertas */
+.alert {
+    border-radius: 0.2rem; /* Bordes redondeados para las alertas */
+}
+
+.alert-primary {
+    background-color: #cce5ff; /* Fondo azul claro para las alertas primarias */
+    color: #004085; /* Texto azul oscuro */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Fondo verde claro para las alertas de éxito */
+    color: #155724; /* Texto verde oscuro */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Fondo rojo claro para las alertas de error */
+    color: #721c24; /* Texto rojo oscuro */
+}
+
+/* 11. Tablas */
+.table {
+    width: 100%; /* Ancho completo para las tablas */
+    margin-bottom: 1rem; /* Margen inferior */
+    color: #212529; /* Color de texto */
+}
+
+.table th, .table td {
+    padding: 0.75rem; /* Relleno para las celdas */
+    vertical-align: top; /* Alineación superior para las celdas */
+    border-top: 1px solid #dee2e6; /* Borde superior de las celdas */
+}
+
+/* 12. Ajustes para el modal */
+.modal-header {
+    background-color: #007bff; /* Fondo azul para el encabezado del modal */
+    color: #fff; /* Texto blanco en el encabezado */
+}
+
+.modal-footer {
+    background-color: #f1f1f1; /* Fondo claro para el pie del modal */
+}
+
+/* 13. Cambiar la apariencia del cursor */
+body, .main-sidebar, .main-header, .navbar-nav, .nav-link {
+    cursor: pointer; /* Poner cursor tipo pointer en los elementos interactivos */
+}
