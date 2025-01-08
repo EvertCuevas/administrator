@@ -103,6 +103,7 @@
                       <th style="width: 10px">#</th>
                       <th style="width: 10px; text-align: center">Cancelar</th>
                       <th>Descripción</th>
+                      <th>Monto</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,6 +113,7 @@
                         <input type="checkbox">
                       </td>
                       <td>Marzo</td>
+                      <td>50 Bs.</td>
                     </tr>
                     <tr>
                       <td>2.</td>

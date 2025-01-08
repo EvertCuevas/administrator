@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1>Registros de Recibos Administrativos</h1>
+          <h1>Registro de Estudiantes</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -28,13 +28,18 @@
       <div class="card-body">
         <form>
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <!-- text input -->
               <div class="form-group">
-                <label>Busqueda:</label>
-                <input type="text" class="form-control" placeholder="Buscar">                   
+                    <input type="text" class="form-control" placeholder="Busqueda">                   
+                  </div>
+            </div>
+            <div class="col-sm-3">
+              <!-- text input -->
+              <div class="form-group">
+                <button type="submit" class="btn btn-warning">Registrar Nuevo</button>
               </div>
             </div>
           </div>
