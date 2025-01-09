@@ -6,6 +6,7 @@ class Login extends BaseController
 {
     public function index()
     {
-        return view('welcome_message');
+        $data = [   'title'         => 'Página de inicio de session'];
+        return view('inicio/login', $data);
     }
 }

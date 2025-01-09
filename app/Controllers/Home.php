@@ -6,6 +6,8 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('welcome_message');
+        $data = [   'title'         => 'Página principal de usuario',
+            	    'contenido'     => 'inicio/inicio'];
+        return view('template/dashboard', $data);
     }
 }

@@ -6,6 +6,24 @@ use TCPDF;
 
 class Reporte extends BaseController
 {
+	public function general()
+    {
+        $data = [   'title'         => 'Página de reporte - General',
+            	    'contenido'     => 'reporte/general'];
+        return view('template/dashboard', $data);
+    }
+    public function mensual()
+    {
+        $data = [   'title'         => 'Página de reporte - Mensual',
+            	    'contenido'     => 'reporte/mensual'];
+        return view('template/dashboard', $data);
+    }
+    public function mensualidad()
+    {
+        $data = [   'title'         => 'Página de trnsaccion - Mensualidad',
+            	    'contenido'     => 'reporte/mensualidad'];
+        return view('template/dashboard', $data);
+    }
     public function demoPDF()
     {
         

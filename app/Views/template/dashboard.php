@@ -9,30 +9,29 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
-  
+  <!-- Theme style custom -->
   <link rel="stylesheet" href="assets/custom.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+  <div class="wrapper">
 
+    <?php echo view('template/menu'); ?>
 
+    <?php echo view($contenido); ?>
 
-
-<?php echo view('template/menu'); ?>
-
-<?php echo view('template/cuerpo'); ?>
-
-<footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.0
-    </div>
-    <strong>Copyright &copy; 2025 <a href="#">ECUES</a>.</strong> All rights reserved.
-  </footer>
-</div>
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+        <b>Version</b> 1.0
+      </div>
+      <strong>Copyright &copy; 2025 <a href="#">ECUES</a>.</strong> All rights reserved.
+    </footer>
+  </div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->

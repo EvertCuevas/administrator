@@ -53,7 +53,7 @@
              with font-awesome or any other icon font library -->
         
         <li class="nav-item">
-          <a href="pages/widgets.html" class="nav-link">
+          <a href="<?= base_url()?>" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
             <p>
               Inicio
@@ -72,7 +72,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/plataforma" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Gestión</p>
               </a>
@@ -91,13 +91,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/cat-ingreso" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Ingreso</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/cat-egreso" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Egreso</p>
               </a>
@@ -116,19 +116,19 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/tran-ingreso" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Ingreso</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/tran-egreso" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Egreso</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/tran-aporte" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Aporte Voluntario</p>
               </a>
@@ -147,19 +147,19 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/rep-mensualidad" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Mensualidad</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/rep-general" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>General</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/rep-mensual" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Mensual</p>
               </a>
@@ -177,13 +177,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/cons-recibo" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Recibo</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/cons-aporte" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Aporte</p>
               </a>
@@ -201,13 +201,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/us-estudiante" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Estudiante</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url()?>/us-admin" class="nav-link">
               <i class="nav-icon fa-solid fas fa-share"></i>
                 <p>Administrador</p>
               </a>
