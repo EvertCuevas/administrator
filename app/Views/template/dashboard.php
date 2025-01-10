@@ -21,9 +21,9 @@
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
-    <?php echo view('template/menu'); ?>
+    <?php echo $this->include('template/menu'); ?>
 
-    <?php echo view($contenido); ?>
+    <?php echo $this->include($contenido); ?>
 
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">

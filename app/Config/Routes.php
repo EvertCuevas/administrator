@@ -5,8 +5,17 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+$routes->get('/home', 'Home::index');
+$routes->post('/home', 'Home::index');
+
 $routes->get('/', 'Home::index');
+$routes->post('/', 'Home::index');
+
 $routes->get('/login', 'Login::index');
+$routes->post('/login', 'Login::index');
+$routes->get('/logout', 'Login::logout');
+
+
 
 
 // rutas de plataforma
