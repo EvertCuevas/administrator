@@ -23,6 +23,8 @@ $routes->get('/plataforma', 'Plataforma::index');
 // rutas de categoria
 $routes->get('/cat-ingreso', 'Categoria::ingreso');
 $routes->get('/cat-egreso', 'Categoria::egreso');
+$routes->post('/cat_registro', 'Categoria::registro_categoria');
+$routes->post('/cat_asi_registro', 'Categoria::registro_asiento');
 // rutas de transaccion
 $routes->get('/tran-ingreso', 'Transaccion::ingreso');
 $routes->get('/tran-egreso', 'Transaccion::egreso');

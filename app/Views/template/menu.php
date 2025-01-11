@@ -1,4 +1,8 @@
 
+<?php 
+// Recuperar el array desde la sesión
+$permise = session()->get('permisos'); // Obtén el array de permisos desde la sesión
+?>
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
@@ -51,7 +55,10 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        
+        <?php  
+        // Verificar si el valor 1 está en el array
+        if (in_array(1, $permise)) { 
+        ?>
         <li class="nav-item">
           <a href="<?= base_url()?>" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
@@ -61,6 +68,12 @@
             </p>
           </a>
         </li>
+        <?php } ?>
+        
+        <?php  
+        // Verificar si el valor 2 está en el array
+        if (in_array(2, $permise)) { 
+        ?>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-copy"></i>
@@ -80,6 +93,12 @@
             
           </ul>
         </li>
+        <?php } ?>
+        
+        <?php  
+        // Verificar si el valor 3 está en el array
+        if (in_array(3, $permise)) { 
+        ?>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cubes"></i>
@@ -105,6 +124,12 @@
             
           </ul>
         </li>
+        <?php } ?>
+        
+        <?php  
+        // Verificar si el valor 4 está en el array
+        if (in_array(4, $permise)) { 
+        ?>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-dollar-sign"></i>
@@ -136,6 +161,12 @@
             
           </ul>
         </li>
+        <?php } ?>
+        
+        <?php  
+        // Verificar si el valor 5 está en el array
+        if (in_array(5, $permise)) { 
+        ?>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-file-invoice"></i>
@@ -166,6 +197,13 @@
             </li>
           </ul>
         </li>
+        <?php } ?>
+        
+
+        <?php  
+        // Verificar si el valor 6 está en el array
+        if (in_array(6, $permise)) { 
+        ?>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fa solid fas fa-question"></i>
@@ -190,6 +228,12 @@
             </li>
           </ul>
         </li>
+        <?php } ?>
+
+        <?php  
+        // Verificar si el valor 7 está en el array
+        if (in_array(7, $permise)) { 
+        ?>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
@@ -214,6 +258,8 @@
             </li>
           </ul>
         </li>
+        <?php } ?>
+        
         <li class="nav-item">
               <a href="<?= base_url()?>logout" class="nav-link">
               <i class="nav-icon fa-solid fas fa-sign-out-alt"></i>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +9,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+  
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+ 
   <!-- Theme style custom -->
   <link rel="stylesheet" href="assets/custom.css">
 </head>
@@ -55,14 +57,21 @@
 <script src="assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-<!-- date-range-picker -->
-<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Page specific script -->
+
+<!-- SweetAlert2 -->
+<script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["csv", "excel", "pdf", "print"],
+      "language": {
+        "search": "Buscar:",  // Cambiar texto del botón de búsqueda
+        "zeroRecords": "No se encontraron registros", // Mensaje cuando no hay resultados
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros", // Información del número de registros mostrados
+        "infoEmpty": "No hay registros disponibles",  // Mensaje cuando no hay registros
+        "infoFiltered": "(filtrado de _MAX_ registros totales)"
+      }
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
@@ -76,6 +85,35 @@
   });
 </script>
 
+<?php 
+// Recuperar el tipo de mensaje y el mensaje de la sesión
+$toast_type = session()->getFlashdata('toast_success') ? 'success' : (session()->getFlashdata('toast_error') ? 'error' : (session()->getFlashdata('toast_warning') ? 'warning' : ''));
+$toast_message = session()->getFlashdata('toast_success') ?? session()->getFlashdata('toast_error') ?? session()->getFlashdata('toast_warning');
+
+// Limpiar los datos flash después de obtenerlos
+session()->remove('toast_success');
+session()->remove('toast_error');
+session()->remove('toast_warning');
+?>
+
+<?php if ($toast_message): ?>
+    <script>
+        $(document).ready(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            // Mostrar el mensaje basado en el tipo
+            Toast.fire({
+                icon: '<?php echo $toast_type; ?>',
+                title: '<?php echo $toast_message; ?>'
+            });
+        });
+    </script>
+<?php endif; ?>
 </body>
 </html>
 
