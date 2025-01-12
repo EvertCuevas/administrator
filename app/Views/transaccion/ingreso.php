@@ -180,7 +180,7 @@
                 <td><?= $lista->CI_CARRIER_RECEIPT ?></td>
                 <td><?= $lista->DESCRIPTION_RECEIPT ?></td>
                 <td style="text-align:center;"><?= $lista->AMOUNT_RECEIPT ?></td>
-                <td style="text-align:center;"><a href="<?= base_url('reporte_recibo/'.$lista->ID_RECEIPT) ?>" target="_blank"><button class="btn btn-warning">IMPRIMIR</button></a></td>
+                <td style="text-align:center;"><a href="<?= base_url('reporte_recibo/'.$lista->NUMBER_RECEIPT.'/1') ?>" target="_blank"><button class="btn btn-warning">IMPRIMIR</button></a></td>
               </tr>
 
           <?php

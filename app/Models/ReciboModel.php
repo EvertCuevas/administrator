@@ -10,12 +10,15 @@ class ReciboModel extends Model
 
     public function lista_Recibo($id_flow)
     {
-        $sql= "SELECT *
-               FROM receipt r, seat s, category c
-               WHERE r.ID_SEAT = s.ID_SEAT AND c.ID_CATEGORY = s.ID_CATEGORY
-                     AND c.ID_FLOW = '$id_flow'
-               ORDER BY ID_RECEIPT DESC  -- Ordena los registros de forma descendente por la fecha de creación
-               LIMIT 30 ";
+        $sql= "SELECT r.NUMBER_RECEIPT,r.CARRIER_RECEIPT,r.CI_CARRIER_RECEIPT,
+                    GROUP_CONCAT(r.DESCRIPTION_RECEIPT) AS DESCRIPTION_RECEIPT,
+                    SUM(r.AMOUNT_RECEIPT) AS AMOUNT_RECEIPT
+                FROM receipt r, seat s, category c
+                WHERE r.ID_SEAT = s.ID_SEAT AND c.ID_CATEGORY = s.ID_CATEGORY
+                     AND c.ID_FLOW = 1
+                GROUP BY r.NUMBER_RECEIPT
+                ORDER BY NUMBER_RECEIPT DESC  -- Ordena los registros de forma descendente por la fecha de creación
+                LIMIT 30";
 
         $query = $this->db->query($sql);
         
@@ -80,4 +83,80 @@ class ReciboModel extends Model
             return FALSE;
         }
     }
+
+    public function datos_Receipt($number_recibo)
+    {
+        
+        $sql= "SELECT ID_SEAT, DESCRIPTION_RECEIPT, AMOUNT_RECEIPT
+               FROM receipt
+               WHERE NUMBER_RECEIPT = '$number_recibo'";
+        
+        $query = $this->db->query($sql);
+        
+        if ($query->getNumRows() > 0)
+        {
+            $data = $query->getResult();
+            return $data;
+        }else{
+            return FALSE;
+        }
+    } 
+
+    public function datos_benef_Receipt($number_recibo)
+    {
+        
+        $sql= "SELECT ID_USER, ID_SCHOOL, CARRIER_RECEIPT, CI_CARRIER_RECEIPT, 
+                        DATE_RECEIPT, NUMBER_RECEIPT
+               FROM receipt
+               WHERE NUMBER_RECEIPT = '$number_recibo'
+               GROUP BY NUMBER_RECEIPT";
+        
+        $query = $this->db->query($sql);
+        
+        if ($query->getNumRows() === 1)
+        {
+            $data = $query->getRow();
+            return $data;
+        }else{
+            return FALSE;
+        }
+    } 
+
+    public function datos_estud_Receipt($number_recibo)
+    {
+        
+        $sql= "SELECT s.NAME_STUDENT, g.NAME_GRADE 
+                FROM grade g, student s, student_management sm, student_management_receipt m, receipt r
+                WHERE g.ID_GRADE = sm.ID_GRADE AND s.ID_STUDENT = sm.ID_STUDENT 
+                    AND sm.ID_STUDENT_MANAGEMENT = m.ID_STUDENT_MANAGEMENT 
+                    AND m.ID_RECEIPT = r.ID_RECEIPT AND r.NUMBER_RECEIPT = '$number_recibo'
+                GROUP BY s.NAME_STUDENT";
+        
+        $query = $this->db->query($sql);
+        
+        if ($query->getNumRows() === 1)
+        {
+            $data = $query->getRow();
+            return $data;
+        }else{
+            return FALSE;
+        }
+    } 
+
+    public function datos_resp_Receipt($id_user)
+    {        
+        $sql= "SELECT NAME_USER, CI_USER
+               FROM user
+               WHERE ID_USER = '$id_user'";
+        
+        $query = $this->db->query($sql);
+        
+        if ($query->getNumRows() === 1)
+        {
+            $data = $query->getRow();
+            return $data;
+        }else{
+            return FALSE;
+        }
+    } 
 }

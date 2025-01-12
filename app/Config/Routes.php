@@ -44,4 +44,4 @@ $routes->get('/cons-recibo', 'Consulta::recibo');
 $routes->get('/us-admin', 'Usuario::administrador');
 $routes->get('/us-estudiante', 'Usuario::estudiante');
 // rutas de reportes
-$routes->get('/reporte_recibo/(:num)', 'Reporte::reporte_recibo/$1');
+$routes->get('/reporte_recibo/(:num)/(:num)', 'Reporte::reporte_recibo/$1/$2');

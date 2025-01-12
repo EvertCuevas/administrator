@@ -14,7 +14,7 @@ class UsuarioModel extends Model
 
         $sql= "SELECT *
                FROM user
-               WHERE USER_USER = '$user' and PASSWORD_USER = '$password'
+               WHERE USER_USER = '$user' and PASSWORD_USER = '$password' and STATE_USER = 1
                ";
 
         $query = $this->db->query($sql);

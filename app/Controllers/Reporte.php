@@ -1,11 +1,17 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Models\ReciboModel;
 use TCPDF;
 
 class Reporte extends BaseController
 {
+	protected $ReciboModel;
+
+    public function __construct()
+    { 
+        $this->ReciboModel = new ReciboModel();   
+    }
 	public function general()
     {
         $data = [   'title'         => 'Página de reporte - General',
@@ -27,8 +33,53 @@ class Reporte extends BaseController
         return view('template/dashboard', $data);
     }
 	
-	public function reporte_recibo($id_recibo)
+	public function reporte_recibo($number_recibo, $tipo)
     {
+		
+		// Datos para cuerpo del recibo
+		$datos_Receipt 			= $this->ReciboModel->datos_Receipt($number_recibo);
+		// Datos del beneficiario del recibo
+		$datos_benef_Receipt	= $this->ReciboModel->datos_benef_Receipt($number_recibo);
+		// Datos del estudiante (condicional)
+		$datos_estud_Receipt 	= $this->ReciboModel->datos_estud_Receipt($number_recibo);
+		
+		if($datos_estud_Receipt){
+			$data_estudiante = '<tr>
+									<td colspan="4"><strong>ESTUDIANTE:</strong> '. $datos_estud_Receipt->NAME_STUDENT .'</td>
+									<td colspan="2"><strong>CURSO:</strong> '. $datos_estud_Receipt->NAME_GRADE .'<br>.</td>
+								</tr>';
+		}else{
+			$data_estudiante = '';
+		}
+		
+		// confiiguraciones para la institucion
+		switch ($datos_benef_Receipt->ID_SCHOOL) {
+			case 1:
+				$logo 	= 'logoma.jpg';
+				$nombre = 'U.E. MARIA AUXILIADORA';
+				break;
+			case 2:
+				$logo 	= 'logomm.jpg';
+				$nombre = 'U.E. MARIA MAZARELLO';
+				break;
+			default:
+			$logo 	= 'logomamm.jpg';
+			$nombre = 'U.E. MARIA AUXILIADORA <br> U.E. MARIA MAZARELLO';
+		}
+
+		switch ($tipo) {
+			case 1:
+				$nivel 	= 'INGRESO';
+				break;
+			case 2:
+				$nivel 	= 'EGRESO';
+				break;
+			default:
+			$nivel 	= '';
+		}
+		// Datos del Usuario Administrador
+		$datos_resp_Receipt 	= $this->ReciboModel->datos_resp_Receipt($datos_benef_Receipt->ID_USER);
+
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(216, 279), true, 'utf-8', false);
 		// remove default header/footer
 		$pdf->setPrintHeader(false);
@@ -41,16 +92,15 @@ class Reporte extends BaseController
 		$html = '<table style="border: red 5px solid;">
 					<tr>
 
-				        <td style="text-align: center;"><img src="'. base_url('assets') .'/img/'. $id_recibo .'" height="80"></td>
-
-				        <td colspan="3">.<br><strong>'. $id_recibo .'</strong> <br>Calle San Francisco de Sales <br>Telf.: 4739526 <br>Cochabamba - Bolivia <br>
+				        <td style="text-align: center;"><img src="'. base_url() .'assets/dist/img/'. $logo .'" height="80"></td>
+				        <td colspan="3">.<br><strong>'. $nombre .'</strong> <br>Calle San Francisco de Sales <br>Telf.: 4739526 <br>Cochabamba - Bolivia <br>
 				        </td>
-				        <td colspan="2" style="text-align:center;">.<br><strong>RECIBO DE INGRESO <br>Nro. '. $id_recibo .' </strong><br>Fecha: '. $id_recibo .'</td>
+				        <td colspan="2" style="text-align:center;">.<br><strong>RECIBO DE '. $nivel .' <br>Nro. '. $datos_benef_Receipt->NUMBER_RECEIPT .' </strong><br>Fecha: '. $datos_benef_Receipt->DATE_RECEIPT .'</td>
 				    </tr>
 				    <tr>
-				        <td colspan="4"><strong>SEÑOR(ES):</strong>'. $id_recibo .'</td>
-				        <td colspan="2"><strong>CI:</strong>'. $id_recibo .'<br>.</td>
-				    </tr>
+				        <td colspan="4"><strong>SEÑOR(ES):</strong> '. $datos_benef_Receipt->CARRIER_RECEIPT .'</td>
+				        <td colspan="2"><strong>CI:</strong> '. $datos_benef_Receipt->CI_CARRIER_RECEIPT .'<br>.</td>
+				    </tr>'. $data_estudiante .'
 			</table>
 			<table style="border: red 5px solid;">
 					<tr style="text-align: center;">
@@ -60,14 +110,28 @@ class Reporte extends BaseController
 				        <td style="border: red 5px solid;">TOTAL</td>
 				    </tr>
 				    <tr>				       
-						<td style="text-align: center; height: 120px;">'. $id_recibo .'</td>
-						<td colspan="3" style="height: 120px;">'. $id_recibo .'</td>
-						<td style="text-align: center; height: 120px;">'. $id_recibo .'</td>
-						<td style="text-align: center; height: 120px;">'. $id_recibo .'</td>
+						<td style="text-align: center; height: 120px;" colspan="6">
+							<table>';
+						if ($datos_Receipt) {
+							$monto = 0;
+				            foreach ($datos_Receipt as $detalle_recibo){ 
+
+				            	$html.= '<tr>
+										    <td style="text-align: center;">'. $detalle_recibo->ID_SEAT .'</td>
+										    <td colspan="3">'. $detalle_recibo->DESCRIPTION_RECEIPT .'</td>
+										    <td style="text-align: center;">'. $detalle_recibo->AMOUNT_RECEIPT .'</td>
+										    <td style="text-align: center;">'. $detalle_recibo->AMOUNT_RECEIPT .'</td>
+										  </tr>';
+							    $monto = $monto + $detalle_recibo->AMOUNT_RECEIPT;
+				        	} 
+				        }
+
+						$html.= '</table>
+						</td>
 					</tr>
 				    <tr>
 				        <td style="border: red 5px solid; text-align: rigth;" colspan="5">Total a Cancelar: ...</td>
-				        <td style="border: red 5px solid; text-align: center;"><strong>'. $id_recibo .'</strong></td>
+				        <td style="border: red 5px solid; text-align: center;"><strong>'. $monto .'</strong></td>
 				    </tr>
 					<tr>
 				        <td style="border: red 5px solid; height: 50px;" colspan="2"></td>
@@ -75,9 +139,9 @@ class Reporte extends BaseController
 				        <td style="border: red 5px solid; height: 50px;" colspan="2"></td>
 				    </tr>
 					<tr>
-				        <td style="border: red 5px solid; text-align: center;" colspan="2"><strong>Responsable:</strong></td>
+				        <td style="border: red 5px solid; text-align: center;" colspan="2">'. $datos_resp_Receipt->NAME_USER .' <br> <strong>'. $datos_resp_Receipt->CI_USER .'</strong></td>
 				        <td style="border: red 5px solid; text-align: center;" colspan="2"><strong>Autorización:</strong></td>
-				        <td style="border: red 5px solid; text-align: center;" colspan="2"><strong>Señor</strong></td>
+				        <td style="border: red 5px solid; text-align: center;" colspan="2">'. $datos_benef_Receipt->CARRIER_RECEIPT .' <br> <strong>'. $datos_benef_Receipt->CI_CARRIER_RECEIPT .'</strong></td>
 				    </tr>
 			</table>';
 
