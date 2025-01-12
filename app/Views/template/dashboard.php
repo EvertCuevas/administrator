@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+  <!-- script para rescatar datos dependientes de un select -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
@@ -71,7 +73,8 @@
         "info": "Mostrando _START_ a _END_ de _TOTAL_ registros", // Información del número de registros mostrados
         "infoEmpty": "No hay registros disponibles",  // Mensaje cuando no hay registros
         "infoFiltered": "(filtrado de _MAX_ registros totales)"
-      }
+      },
+      "ordering": false 
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

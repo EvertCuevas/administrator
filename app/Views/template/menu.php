@@ -90,6 +90,12 @@ $permise = session()->get('permisos'); // Obtén el array de permisos desde la s
                 <p>Gestión</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fas fa-share"></i>
+                <p>Institución</p>
+              </a>
+            </li>
             
           </ul>
         </li>

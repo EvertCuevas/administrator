@@ -83,14 +83,23 @@ class CategoriaModel extends Model
         $this->db->table('seat')->insert($data);
 
         // Obtener el último ID insertado
-        $ID_RECEIPT = $this->db->insertID();
+        $ID_SEAT = $this->db->insertID();
         
-        if ($ID_RECEIPT)
+        if ($ID_SEAT)
         {
             session()->setFlashdata('toast_success', '¡La acción fue exitosa!');
         }else{
             session()->setFlashdata('toast_error', '¡ERROR al realizar la acción!');
             return FALSE;
         }
+    }
+
+    public function lista_Categoria_Asiento($id_categoria)
+    {
+        $sql= "SELECT *
+        FROM seat
+        WHERE ID_CATEGORY = '$id_categoria'";
+        $query = $this->db->query($sql);
+        return $query->getResult();
     }
 }
