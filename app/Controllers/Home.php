@@ -7,6 +7,7 @@ use App\Models\UsuarioModel;
 class Home extends BaseController
 {
     protected $UsuarioModel;
+    
     public function __construct()
     {
         $this->UsuarioModel = new UsuarioModel();   

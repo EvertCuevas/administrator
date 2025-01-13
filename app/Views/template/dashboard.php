@@ -145,5 +145,3 @@ session()->remove('toast_warning');
   </script>
 </body>
 </html>
-
-  

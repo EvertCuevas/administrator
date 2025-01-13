@@ -67,13 +67,7 @@ class Transaccion extends BaseController
             return redirect('Home');
         } 
     }
-    public function aporte()
-    {
-        $data = [   'title'         => 'Página de trnsaccion - aporte',
-            	    'contenido'     => 'transaccion/aporte'];
-        return view('template/dashboard', $data);
-    }
-    
+        
     public function registro_ingreso()
     {
         $array = session()->get('permisos');
@@ -109,4 +103,40 @@ class Transaccion extends BaseController
             return redirect('Home');
         } 
     }
+    
+    public function aporte()
+    {
+        $array = session()->get('permisos');
+        if($array){
+            if(in_array(4, $array)){
+                $data = [   'title'             => 'Página de trnsaccion aporte - buscar estudiante',
+                            'contenido'         => 'transaccion/buscar_est'
+                        ];
+                return view('template/dashboard', $data);
+            }else{
+                return redirect('Home');
+            }
+        }else{
+            return redirect('Home');
+        }  
+    }
+
+    public function pago_aporte()
+    {
+        $array = session()->get('permisos');
+        if($array){
+            if(in_array(4, $array)){
+
+                $data = [   'title'             => 'Página de trnsaccion - aporte',
+                            'contenido'         => 'transaccion/aporte'
+                        ];
+                return view('template/dashboard', $data);
+            }else{
+                return redirect('Home');
+            }
+        }else{
+            return redirect('Home');
+        }  
+    }
+    
 }

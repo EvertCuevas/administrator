@@ -33,6 +33,11 @@ $routes->get('/tran-aporte', 'Transaccion::aporte');
 $routes->post('/tran-reg-ingreso', 'Transaccion::registro_ingreso');
 $routes->post('/tran-reg-egreso', 'Transaccion::registro_egreso');
 $routes->post('/tran-reg-aporte', 'Transaccion::registro_aporte');
+$routes->get('/pago_aporte/(:num)', 'Transaccion::pago_aporte/$1');
+
+// rutas de estudiante
+$routes->get('/tran-list-estudiante', 'Estudiante::lista_busqueda');
+
 // rutas de reporte
 $routes->get('/rep-general', 'Reporte::general');
 $routes->get('/rep-mensual', 'Reporte::mensual');
