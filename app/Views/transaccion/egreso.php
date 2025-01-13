@@ -26,16 +26,23 @@
         </div>
       </div>
       <div class="card-body">
-        <form>
+        <form action="<?= base_url()?>tran-reg-ingreso" method="post">
+          <input type="hidden" value="2" name="id_nivel">
           <div class="row">
             <div class="col-sm-3">
               <!-- text input -->
               <div class="form-group">
-                <label>Categoria Asiento:</label>
-                <select class="form-control select2" style="width: 100%;">
+                <label>Categoria:</label>
+                <select id="idCategoria" class="form-control select2" style="width: 100%;" required>
+                  <?php if($lista_Categoria){ ?>
                   <option selected disabled value="">Seleccionar Categoria</option>
-                  <option>Ingresos</option>
-                  <option>Otros Ingresos</option>
+                  <?php foreach ($lista_Categoria as $Categoria){ 
+                  ?>
+                    <option value="<?= $Categoria->ID_CATEGORY ?>"><?php echo $Categoria->NAME_CATEGORY ?></option>
+                  <?php } 
+                    } else{ ?>
+                    <option selected disabled value="">Registre Categoria</option>
+                  <?php } ?>   
                 </select>
                 <!-- <input type="text" class="form-control" placeholder="Seleccione Categoria"> -->
               </div>
@@ -44,10 +51,8 @@
               <!-- text input -->
               <div class="form-group">
                 <label>Nombre de Asiento:</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected disabled value="">Seleccione Asiento</option>
-                  <option>Ingresos</option>
-                  <option>Otros Ingresos</option>
+                <select id="idAsiento" class="form-control select2" style="width: 100%;" name="cod_asiento" required>
+                  <option selected disabled value="">Seleccione Categoria</option>
                 </select>
               </div>
             </div>
@@ -55,10 +60,16 @@
               <!-- text input -->
               <div class="form-group">
                 <label>Institución:</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected disabled value="">Selecciones Institución</option>
-                  <option>Ingresos</option>
-                  <option>Otros Ingresos</option>
+                <select class="form-control select2" style="width: 100%;" name="cod_institucion" required>
+                  <?php if($lista_Institucion){ ?>
+                  <option selected disabled value="">Seleccionar Institución</option>
+                  <?php foreach ($lista_Institucion as $institucion){ 
+                  ?>
+                    <option value="<?= $institucion->ID_SCHOOL ?>"><?php echo $institucion->NAME_SCHOOL ?></option>
+                  <?php } 
+                    } else{ ?>
+                    <option selected disabled value="">Registre institucion</option>
+                  <?php } ?>   
                 </select>
               </div>
             </div>
@@ -68,7 +79,7 @@
               <!-- text input -->
               <div class="form-group">
                 <label>Nombre Completo:</label>
-                <input type="text" class="form-control" placeholder="Ingrese Nombres y Apellidos">
+                <input type="text" class="form-control" placeholder="Ingrese Nombres y Apellidos" name="nombre" required>
                 <!-- <input type="text" class="form-control" placeholder="Seleccione Categoria"> -->
               </div>
             </div>
@@ -76,7 +87,7 @@
               <!-- text input -->
               <div class="form-group">
                 <label>CI:</label>
-                <input type="text" class="form-control" placeholder="Ingrese CI">
+                <input type="text" class="form-control" placeholder="Ingrese CI" name="ci_nombre" required>
               </div>
             </div>
           </div>
@@ -85,7 +96,7 @@
               <!-- text input -->
               <div class="form-group">
               <label>Descripción:</label>
-              <textarea class="form-control" rows="4" placeholder="Seleccione"></textarea>          
+              <textarea class="form-control" rows="4" placeholder="Seleccione" name="descripcion" required></textarea>          
               </div>
             </div>
             <div class="col-sm-4">
@@ -94,7 +105,13 @@
                   <!-- text input -->
                   <div class="form-group">
                     <label>Tipo de Pago:</label>
-                    <input type="text" class="form-control" placeholder="Ingrese Monto">                   
+                    <select class="form-control select2" style="width: 100%;" name="tipo" required>
+                      <option selected disabled value="">Seleccione Tipo</option>
+                      <option value="Efectivo">Efectivo</option>
+                      <option value="Cheque">Cheque</option>
+                      <option value="Tranferencia">Tranferencia</option>
+                      <option value="Otros">Otros</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -103,11 +120,7 @@
                   <!-- text input -->
                   <div class="form-group">
                     <label>Monto a Cancelar:</label>
-                    <select class="form-control select2" style="width: 100%;">
-                      <option selected disabled value="">Selecciones Institución</option>
-                      <option>Ingresos</option>
-                      <option>Otros Ingresos</option>
-                    </select>
+                    <input type="number" step="any" class="form-control" placeholder="Ingrese Monto" name="monto" required>                   
                   </div>
                 </div>
               </div>
@@ -116,7 +129,7 @@
           <div class="row" style="text-align: center;">
             <div class="col-sm-12">
               <div class="form-group">
-                <button type="submit" class="btn btn-primary">Registrar Ingreso</button>
+                <button type="submit" class="btn btn-primary">Registrar Egreso</button>
               </div>
             </div>
           </div>
@@ -134,7 +147,7 @@
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Ultimos registros</h3>
+        <h3 class="card-title">Ultimos registros de Egresos</h3>
 
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -148,429 +161,48 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>Rendering engine</th>
-            <th>Browser</th>
-            <th>Platform(s)</th>
-            <th>Engine version</th>
-            <th>CSS grade</th>
+            <th># Recibo</th>
+            <th>Nombre</th>
+            <th>N° de CI</th>
+            <th>Descripción</th>
+            <th>Monto Cancelado</th>
+            <th>opcion</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Trident</td>
-            <td>Internet
-              Explorer 4.0
-            </td>
-            <td>Win 95+</td>
-            <td> 4</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet
-              Explorer 5.0
-            </td>
-            <td>Win 95+</td>
-            <td>5</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet
-              Explorer 5.5
-            </td>
-            <td>Win 95+</td>
-            <td>5.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet
-              Explorer 6
-            </td>
-            <td>Win 98+</td>
-            <td>6</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet Explorer 7</td>
-            <td>Win XP SP2+</td>
-            <td>7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>AOL browser (AOL desktop)</td>
-            <td>Win XP</td>
-            <td>6</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 1.0</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 1.5</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 2.0</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 3.0</td>
-            <td>Win 2k+ / OSX.3+</td>
-            <td>1.9</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Camino 1.0</td>
-            <td>OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Camino 1.5</td>
-            <td>OSX.3+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Netscape 7.2</td>
-            <td>Win 95+ / Mac OS 8.6-9.2</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Netscape Browser 8</td>
-            <td>Win 98SE+</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Netscape Navigator 9</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.0</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.1</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.2</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.2</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.3</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.3</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.4</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.4</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.5</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.6</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.6</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.7</td>
-            <td>Win 98+ / OSX.1+</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.8</td>
-            <td>Win 98+ / OSX.1+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Seamonkey 1.1</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Epiphany 2.20</td>
-            <td>Gnome</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 1.2</td>
-            <td>OSX.3</td>
-            <td>125.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 1.3</td>
-            <td>OSX.3</td>
-            <td>312.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 2.0</td>
-            <td>OSX.4+</td>
-            <td>419.3</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 3.0</td>
-            <td>OSX.4+</td>
-            <td>522.1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>OmniWeb 5.5</td>
-            <td>OSX.4+</td>
-            <td>420</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>iPod Touch / iPhone</td>
-            <td>iPod</td>
-            <td>420.1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>S60</td>
-            <td>S60</td>
-            <td>413</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 7.0</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 7.5</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 8.0</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 8.5</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 9.0</td>
-            <td>Win 95+ / OSX.3+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 9.2</td>
-            <td>Win 88+ / OSX.3+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 9.5</td>
-            <td>Win 88+ / OSX.3+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera for Wii</td>
-            <td>Wii</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Nokia N800</td>
-            <td>N800</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Nintendo DS browser</td>
-            <td>Nintendo DS</td>
-            <td>8.5</td>
-            <td>C/A<sup>1</sup></td>
-          </tr>
-          <tr>
-            <td>KHTML</td>
-            <td>Konqureror 3.1</td>
-            <td>KDE 3.1</td>
-            <td>3.1</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>KHTML</td>
-            <td>Konqureror 3.3</td>
-            <td>KDE 3.3</td>
-            <td>3.3</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>KHTML</td>
-            <td>Konqureror 3.5</td>
-            <td>KDE 3.5</td>
-            <td>3.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 4.5</td>
-            <td>Mac OS 8-9</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 5.1</td>
-            <td>Mac OS 7.6-9</td>
-            <td>1</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 5.2</td>
-            <td>Mac OS 8-X</td>
-            <td>1</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>NetFront 3.1</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>NetFront 3.4</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>Dillo 0.8</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>Links</td>
-            <td>Text only</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>Lynx</td>
-            <td>Text only</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>IE Mobile</td>
-            <td>Windows Mobile 6</td>
-            <td>-</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>PSP browser</td>
-            <td>PSP</td>
-            <td>-</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Other browsers</td>
-            <td>All others</td>
-            <td>-</td>
-            <td>-</td>
-            <td>U</td>
-          </tr>
+          <?php if($lista_Recibo){
+            $cont=1;
+            foreach ($lista_Recibo as $lista){ 
+          ?>
+              <tr>
+                <td style="text-align:center;"><?= $lista->NUMBER_RECEIPT ?></td>
+                <td><?= $lista->CARRIER_RECEIPT ?></td>
+                <td><?= $lista->CI_CARRIER_RECEIPT ?></td>
+                <td><?= $lista->DESCRIPTION_RECEIPT ?></td>
+                <td style="text-align:center;"><?= $lista->AMOUNT_RECEIPT ?></td>
+                <td style="text-align:center;"><a href="<?= base_url('reporte_recibo/'.$lista->NUMBER_RECEIPT.'/2') ?>" target="_blank"><button class="btn btn-warning">IMPRIMIR</button></a></td>
+              </tr>
+
+          <?php
+            $cont++; } 
+            } else{ ?>
+            <td>Sin registro</td>
+            <td>Sin registro</td>
+            <td>Sin registro</td>
+            <td>Sin registro</td>
+            <td>Sin registro</td>
+            <td>Sin registro</td>
+          <?php } ?>
+          
           </tbody>
           <tfoot>
           <tr>
-            <th>Rendering engine</th>
-            <th>Browser</th>
-            <th>Platform(s)</th>
-            <th>Engine version</th>
-            <th>CSS grade</th>
+            <th>N° de Recibo</th>
+            <th>Nombre</th>
+            <th>N° de CI</th>
+            <th>Descripción</th>
+            <th>Monto Cancelado</th>
+            <th>opcion</th>
           </tr>
           </tfoot>
         </table>
@@ -582,3 +214,19 @@
   </section>
   <!-- /.content -->
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">   
+  $(document).ready(function() {
+    $("#idCategoria").change(function() {
+        $("#idCategoria option:selected").each(function() {
+            var idCategoria = $(this).val();
+            $.post("<?php echo base_url();?>cat-list-siento", {
+                idCategoria : idCategoria
+            }, function(data) {
+                $("#idAsiento").html(data);
+            });
+        });
+    });
+  });
+</script>

@@ -147,7 +147,7 @@
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Ultimos registros</h3>
+        <h3 class="card-title">Ultimos Registros de Ingresos</h3>
 
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

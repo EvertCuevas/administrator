@@ -46,9 +46,26 @@ class Transaccion extends BaseController
     }
     public function egreso()
     {
-        $data = [   'title'         => 'Página de trnsaccion - egresos',
-            	    'contenido'     => 'transaccion/egreso'];
-        return view('template/dashboard', $data);
+        $array = session()->get('permisos');
+        if($array){
+            if(in_array(4, $array)){
+                $lista_Institucion = $this->InstitucionModel->lista_School();
+                $lista_Recibo = $this->ReciboModel->lista_Recibo(2);
+                $lista_Categoria = $this->CategoriaModel->lista_Categoria(2);
+
+                $data = [   'title'             => 'Página de trnsaccion - egresos',
+                            'contenido'         => 'transaccion/egreso',
+                            'lista_Institucion' => $lista_Institucion,
+                            'lista_Recibo'      => $lista_Recibo,
+                            'lista_Categoria'   => $lista_Categoria
+                        ];
+                return view('template/dashboard', $data);
+            }else{
+                return redirect('Home');
+            }
+        }else{
+            return redirect('Home');
+        } 
     }
     public function aporte()
     {

@@ -15,7 +15,7 @@ class ReciboModel extends Model
                     SUM(r.AMOUNT_RECEIPT) AS AMOUNT_RECEIPT
                 FROM receipt r, seat s, category c
                 WHERE r.ID_SEAT = s.ID_SEAT AND c.ID_CATEGORY = s.ID_CATEGORY
-                     AND c.ID_FLOW = 1
+                     AND c.ID_FLOW = '$id_flow'
                 GROUP BY r.NUMBER_RECEIPT
                 ORDER BY NUMBER_RECEIPT DESC  -- Ordena los registros de forma descendente por la fecha de creación
                 LIMIT 30";
