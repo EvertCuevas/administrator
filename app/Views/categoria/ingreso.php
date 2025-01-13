@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="<?= base_url()?>cat_asi_registro" method="post">
+        <form id="myForm" action="<?= base_url()?>cat_asi_registro" method="post">
           <div class="row">
             <div class="col-sm-3">
               <!-- text input -->
@@ -71,7 +71,7 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group">
-                <button type="submit" class="btn btn-warning">Registrar Asiento</button>
+                <button id="submitButton" type="submit" class="btn btn-warning">Registrar Asiento</button>
               </div>
             </div>
             <div class="col-sm-2"></div>

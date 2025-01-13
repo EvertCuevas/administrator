@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="<?= base_url()?>tran-reg-ingreso" method="post">
+        <form id="myForm"  action="<?= base_url()?>tran-reg-ingreso" method="post">
           <input type="hidden" value="2" name="id_nivel">
           <div class="row">
             <div class="col-sm-3">
@@ -129,7 +129,7 @@
           <div class="row" style="text-align: center;">
             <div class="col-sm-12">
               <div class="form-group">
-                <button type="submit" class="btn btn-primary">Registrar Egreso</button>
+                <button type="submit"  id="submitButton" class="btn btn-primary">Registrar Egreso</button>
               </div>
             </div>
           </div>

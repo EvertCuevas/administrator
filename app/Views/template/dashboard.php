@@ -117,6 +117,32 @@ session()->remove('toast_warning');
         });
     </script>
 <?php endif; ?>
+<script>
+    // Obtener el formulario y el botón de submit
+    const form = document.getElementById('myForm');
+    
+    // Evento que se ejecuta cuando el usuario hace clic en el botón de submit
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Evitar que el formulario se envíe inmediatamente
+
+      // Mostrar el cuadro de confirmación con SweetAlert2
+      Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¿Quieres enviar este formulario?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#003D99",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, enviar"
+      }).then((result) => {
+        // Si el usuario confirma la acción, enviar el formulario
+        if (result.isConfirmed) {
+          // Enviar el formulario después de la confirmación
+          form.submit(); // Esto envía el formulario
+        }
+      });
+    });
+  </script>
 </body>
 </html>
 
