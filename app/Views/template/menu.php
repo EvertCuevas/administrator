@@ -1,8 +1,4 @@
 
-<?php 
-// Recuperar el array desde la sesión
-$permise = session()->get('permisos'); // Obtén el array de permisos desde la sesión
-?>
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
@@ -49,8 +45,11 @@ $permise = session()->get('permisos'); // Obtén el array de permisos desde la s
         <h6><strong><?php echo session()->get('nombre'); ?></strong></h6>
       </div>
     </div>
-
-    <!-- Sidebar Menu -->
+    <?php 
+    // Recuperar el array desde la sesión
+    $permise = session()->get('permisos'); // Obtén el array de permisos desde la sesión
+    if($permise ){?>
+      <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
@@ -275,6 +274,8 @@ $permise = session()->get('permisos'); // Obtén el array de permisos desde la s
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
+    <?php } ?>
+    
   </div>
   <!-- /.sidebar -->
 </aside>
