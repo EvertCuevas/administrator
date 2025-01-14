@@ -39,7 +39,7 @@
             <div class="col-sm-3">
               <!-- text input -->
               <div class="form-group">
-                <button type="submit" class="btn btn-warning">Registrar Nuevo</button>
+                <button type="button" data-toggle="modal" data-target="#modal-default" class="btn btn-warning">Registrar Estudiantre Nuevo</button>
               </div>
             </div>
           </div>
@@ -92,3 +92,93 @@
   </section>
   <!-- /.content -->
 </div>
+<!-- /.modal -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      <form action="<?= base_url()?>tran-reg-estudiante" method="post">
+        <input type="hidden" value="1" name="gestion">
+        <div class="modal-header"  style="background-color: #FCD145">
+          <h4 class="modal-title">Registro de Estudiante Nuevo</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Curso:</label>
+            <input type="hidden" class="form-control" value="1" name="curso">
+            <select class="form-control select2" style="width: 100%;" name="curso" required>
+              <?php if($lista_Curso){ ?>
+                <option selected disabled value="">Seleccionar Categoria</option>
+              
+                <?php foreach ($lista_Curso as $lista){ 
+                ?>
+                  <option value="<?= $lista->ID_GRADE ?>"><?php echo $lista->NAME_GRADE ?></option>
+                <?php } 
+                  } else{ ?>
+                  <option selected disabled value="">Registrar Cursos</option>
+                <?php } ?>    
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nombres:</label>
+            <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombre(s) del Estudiante">
+          </div>
+          <div class="form-group">
+            <label>Apellidos:</label>
+            <input type="text" class="form-control" name="apellido" placeholder="Ingrese Apellido(s) del Estudiante">
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>CI Estudiante:</label>
+                <input type="text" class="form-control" name="ci" placeholder="Ingrese CI del Estudiante">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>RUDE:</label>
+                <input type="text" class="form-control" name="rude" placeholder="Ingrese RUDE del Estudiante">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Estudiante Nuevo:</label>
+                <select class="form-control select2" style="width: 100%;" name="est_nuevo" required>
+                  <option selected disabled value="0">Seleccione una Opción</option> 
+                  <option value="0">No Corresponde</option> 
+                  <option value="1">Pendiente</option> 
+                  <option value="2">Cancelado</option> 
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Anualidad:</label>
+                <select class="form-control select2" style="width: 100%;" name="anualidad" required>
+                  <option selected disabled value="0">Seleccione una Opción</option> 
+                  <option value="1">Pendiente</option> 
+                  <option value="2">Cancelado</option> 
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>mensualiodades Canceladas:</label>
+            <input type="number" class="form-control" name="mensualidad" value="0" placeholder="Ingrese Cantidad de Mensualidades">
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -30,7 +30,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <div class="brand-link">
-    <img src="assets/dist/img/salesiano.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="<?= base_url() ?>assets/dist/img/salesiano.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <h4 class="h2"><strong>SIS</strong> Admin</h4>
 </div>
 
@@ -39,7 +39,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="assets/dist/img/user.png" class="img-circle elevation-2" alt="User Image">
+        <img src="<?= base_url() ?>assets/dist/img/user.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <h6><strong><?php echo session()->get('nombre'); ?></strong></h6>

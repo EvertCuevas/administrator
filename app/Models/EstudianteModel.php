@@ -45,32 +45,57 @@ class EstudianteModel extends Model
         return $resultados;
     }
 
-    public function busqueda_estudiante_demo($query)
+    public function lista_Curso()
     {
-        // Usamos el método like() de CodeIgniter para la búsqueda
-        $builder = $this->db->table('student s');
-        $builder->select('sm.ID_STUDENT_MANAGEMENT, s.ID_STUDENT, s.NAME_STUDENT, g.NAME_GRADE, 
-                          sm.NEW_STUDENT, sm.ANNUITY_STUDENT, sm.MONTHLY_STUDENT');
-        $builder->join('student_management sm', 's.ID_STUDENT = sm.ID_STUDENT', 'inner');
-        $builder->join('grade g', 'g.ID_GRADE = sm.ID_GRADE', 'inner');
-        
-        // Usamos like para buscar coincidencias
-        $builder->groupStart()
-                ->like('s.NAME_STUDENT', $query)
-                ->orLike('g.NAME_GRADE', $query)
-                ->groupEnd();
-        
-        // Limitar los resultados a 100
-        $builder->limit(100);
-        
-        // Ejecutar la consulta
-        $query = $builder->get();
+        $sql= "SELECT *
+               FROM grade";
 
-        // Verificar si la consulta devuelve resultados
-        if ($query->getNumRows() > 0) {
-            return $query->getResult(); // Devolver los resultados
-        } else {
-            return FALSE; // No hay resultados
+        $query = $this->db->query($sql);
+        
+        if ($query->getNumRows() > 0)
+        {
+            $data = $query->getResult();
+            return $data;
+        }else{
+            return FALSE;
+        }
+    }
+    
+    public function registro_estudiante($curso,$nombre,$apellido,$ci,$rude,$est_nuevo,$anualidad,$mensualidad,$gestion)
+    {    
+
+        // Datos a insertar
+        $data_student = [
+            'NAME_STUDENT'      => $nombre,
+            'LASTNAME_STUDENT'  => $apellido,
+            'CI_STUDENT'        => $ci,
+            'RUDE_STUDENT'      => $rude
+        ];
+        // Insertar los datos
+        $this->db->table('student')->insert($data_student);
+        // Obtener el último ID insertado
+        $id_student = $this->db->insertID();
+
+        // Datos a insertar
+        $data_student_manag = [
+            'ID_GRADE'          => $curso,
+            'ID_STUDENT'        => $id_student,
+            'ID_MANAGEMENT'     => $gestion,
+            'NEW_STUDENT'       => $est_nuevo,
+            'ANNUITY_STUDENT'   => $anualidad,
+            'MONTHLY_STUDENT'   => $mensualidad
+        ];
+        // Insertar los datos
+        $this->db->table('student_management')->insert($data_student_manag);
+        // Obtener el último ID insertado
+        $id_stud_mn = $this->db->insertID();
+        
+        if ($id_stud_mn)
+        {
+            session()->setFlashdata('toast_success', '¡La acción fue exitosa!');
+        }else{
+            session()->setFlashdata('toast_error', '¡ERROR al realizar la acción!');
+            return FALSE;
         }
     }
 }

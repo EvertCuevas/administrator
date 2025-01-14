@@ -5,18 +5,21 @@ namespace App\Controllers;
 use App\Models\CategoriaModel;
 use App\Models\InstitucionModel;
 use App\Models\ReciboModel;
+use App\Models\EstudianteModel;
 
 class Transaccion extends BaseController
 {
     protected $CategoriaModel;
     protected $InstitucionModel;
     protected $ReciboModel;
+    protected $EstudianteModel;
 
     public function __construct()
     {
-        $this->CategoriaModel = new CategoriaModel();   
-        $this->InstitucionModel = new InstitucionModel();   
-        $this->ReciboModel = new ReciboModel();   
+        $this->CategoriaModel       = new CategoriaModel();   
+        $this->InstitucionModel     = new InstitucionModel();   
+        $this->ReciboModel          = new ReciboModel();   
+        $this->EstudianteModel     = new EstudianteModel();   
     }
     public function index()
     {
@@ -109,8 +112,12 @@ class Transaccion extends BaseController
         $array = session()->get('permisos');
         if($array){
             if(in_array(4, $array)){
-                $data = [   'title'             => 'Página de trnsaccion aporte - buscar estudiante',
-                            'contenido'         => 'transaccion/buscar_est'
+
+                $lista_Curso = $this->EstudianteModel->lista_Curso();
+
+                $data = [   'title'         => 'Página de trnsaccion aporte - buscar estudiante',
+                            'contenido'     => 'transaccion/buscar_est',
+                            'lista_Curso'   => $lista_Curso
                         ];
                 return view('template/dashboard', $data);
             }else{
@@ -121,7 +128,7 @@ class Transaccion extends BaseController
         }  
     }
 
-    public function pago_aporte()
+    public function pago_aporte($dato)
     {
         $array = session()->get('permisos');
         if($array){
